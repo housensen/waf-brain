@@ -28,13 +28,15 @@ async def waf(request, path):
     TIMEOUT_BACKEND = request.app.config["TIMEOUT_BACKEND"]
 
     total = []
-    for arg, val in request.raw_args.items():
-        total.append(process_payload(
+    for arg, val in request.query_args:
+        result = process_payload(
             MODEL,
             arg,
             [val],
             False
-        ))
+        )
+        if result:
+            total.append(result)
 
     #
     # Request must be block if the WAF detect and attack?
@@ -56,7 +58,7 @@ async def waf(request, path):
                 PROTECTED_URL,
                 headers=request.headers,
                 data=request.body,
-                params=request.raw_args) as resp:
+                params=request.query_args) as resp:
 
             body = await resp.text()
 

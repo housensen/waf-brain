@@ -88,6 +88,7 @@ def process_payload(model, param_name, payloads, check_weights=False):
         # Snapshot for time
         before_time = time.time()
         elems = [reduce_dimension(row_parse(payloads[0]), X_FEATURES)]
+        print(payloads[0], elems)
         x_demo = []
         y_demo = []
 

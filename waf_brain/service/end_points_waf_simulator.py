@@ -27,8 +27,8 @@ async def waf_simulator(request, path):
     BLOCKING_THRESHOLD = request.app.config["BLOCKING_THRESHOLD"]
     DUMP_FILE = request.app.config["DUMP_FILE"]
 
-    total = []
-    for arg, val in request.raw_args.items():
+    total = []       
+    for arg, val in request.query_args:
         if pattern.match(val):
             total.append(
                 {"paramName": arg,

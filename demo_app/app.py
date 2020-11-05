@@ -3,6 +3,7 @@ from aiohttp import web
 
 async def demo_api(request):
     print(".")
+    print(request.query_string)
     return web.Response(text="OK")
 
 
